@@ -7,7 +7,7 @@
 | `demo-start` branch | Check out before each demo run |
 | `demo-baseline` tag | Immutable save point (plan + reset skill, no ticket implementations) |
 
-Reset code: run `.cursor/skills/excalidraw-demo-reset/scripts/reset-demo.sh` or ask Cursor to use the **excalidraw-demo-reset** skill.
+Reset code (local + GitHub `aeroos/demo-start`): run `.cursor/skills/excalidraw-demo-reset/scripts/reset-demo.sh` or ask Cursor to **reset demo** (uses the **excalidraw-demo-reset** skill).
 
 ## Jira space: Excalidraw (`EXCL`)
 

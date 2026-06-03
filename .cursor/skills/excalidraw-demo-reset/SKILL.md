@@ -1,0 +1,53 @@
+---
+name: excalidraw-demo-reset
+description: >-
+  Resets the Excalidraw monorepo and Jira EXCL tickets to the SDLC demo baseline.
+  Use when the user says reset demo, demo start, demo baseline, practice demo again,
+  or wants a clean slate before re-running the Excalidraw + Jira MCP demo.
+---
+
+# Excalidraw demo reset
+
+Returns the workspace to a repeatable demo starting point: clean git code + Jira tickets in **To Do**.
+
+## Step 1 — Reset git (always run)
+
+From repo root, execute:
+
+```bash
+bash .cursor/skills/excalidraw-demo-reset/scripts/reset-demo.sh
+```
+
+This checks out `demo-start`, hard-resets to tag `demo-baseline`, and removes untracked demo artifacts (`e2e/`, `playwright.config.ts`, `test-results/`).
+
+Verify: `git status --short` should show only untracked files outside `.cursor/` (ideally empty).
+
+## Step 2 — Reset Jira tickets (when Atlassian MCP is available)
+
+Cloud ID: `a698387e-120a-4b00-a93f-2a0356ecc090` (alecroos.atlassian.net)
+
+For each issue **EXCL-1** through **EXCL-5**:
+
+1. `getJiraIssue` — skip if status is already **To Do**
+2. `getTransitionsForJiraIssue` — find transition to **To Do** (may be named "To Do", "Reopen", or "Backlog" depending on board)
+3. `transitionJiraIssue` with that transition id
+
+If a ticket is **Done**, you may need a backward transition first. Transition all five before the next demo run.
+
+Project board: https://alecroos.atlassian.net/jira/software/projects/EXCL/list
+
+## Step 3 — Confirm baseline
+
+Report to the user:
+
+- Git: on `demo-start` @ `demo-baseline`
+- Jira: EXCL-1 … EXCL-5 status (all should be To Do)
+- Recommended first demo ticket: **EXCL-2** (unit tests; best for cloud agent)
+
+Reference: [.cursor/demo/README.md](../../demo/README.md)
+
+## Do not
+
+- Commit or push unless the user asks
+- Delete the Jira project or tickets
+- Remove `.cursor/plans/` or this skill

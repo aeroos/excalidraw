@@ -7,7 +7,11 @@
 | `demo-start` branch | Check out before each demo run |
 | `demo-baseline` tag | Immutable save point (plan + reset skill, no ticket implementations) |
 
-Reset code (local + GitHub `aeroos/demo-start`): run `.cursor/skills/excalidraw-demo-reset/scripts/reset-demo.sh` or ask Cursor to **reset demo** (uses the **excalidraw-demo-reset** skill).
+Reset code (local + GitHub `origin/demo-start` on **aeroos/excalidraw**): run `.cursor/skills/excalidraw-demo-reset/scripts/reset-demo.sh` or ask Cursor to **reset demo** (uses the **excalidraw-demo-reset** skill).
+
+**Remotes:** `origin` → your fork (`aeroos/excalidraw`); `upstream` → official `excalidraw/excalidraw`.
+
+**CI:** Upstream GitHub Actions are removed on `demo-start` so demo PRs are not blocked by Lint / Semantic PR title / Coverage. `master` on the fork may still have workflows if unchanged.
 
 ## Jira space: Excalidraw (`EXCL`)
 

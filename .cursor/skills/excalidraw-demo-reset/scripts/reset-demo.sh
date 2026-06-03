@@ -9,7 +9,7 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
 cd "$ROOT"
 
 DEMO_BRANCH="${DEMO_BRANCH:-demo-start}"
-DEMO_REMOTE="${DEMO_REMOTE:-aeroos}"
+DEMO_REMOTE="${DEMO_REMOTE:-origin}"
 SKIP_REMOTE=false
 
 for arg in "$@"; do
@@ -17,7 +17,7 @@ for arg in "$@"; do
     --no-push) SKIP_REMOTE=true ;;
     -h | --help)
       echo "Usage: reset-demo.sh [--no-push]"
-      echo "  Resets $DEMO_BRANCH to demo-baseline locally and on \$DEMO_REMOTE (default: aeroos)."
+      echo "  Resets $DEMO_BRANCH to demo-baseline locally and on \$DEMO_REMOTE (default: origin)."
       exit 0
       ;;
     *)

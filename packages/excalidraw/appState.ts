@@ -1,5 +1,5 @@
 import {
-  COLOR_PALETTE,
+  DEFAULT_CANVAS_BACKGROUND_PICKS,
   ARROW_TYPE,
   DEFAULT_ELEMENT_PROPS,
   DEFAULT_FONT_FAMILY,
@@ -105,7 +105,7 @@ export const getDefaultAppState = (): Omit<
     editingFrame: null,
     elementsToHighlight: null,
     toast: null,
-    viewBackgroundColor: COLOR_PALETTE.white,
+    viewBackgroundColor: DEFAULT_CANVAS_BACKGROUND_PICKS[2],
     zenModeEnabled: false,
     zoom: {
       value: 1 as NormalizedZoomValue,

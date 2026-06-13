@@ -34,6 +34,7 @@ import {
   getCenterForBounds,
   getCubicBezierCurveBound,
   getDiamondPoints,
+  getTriangleElementSides,
   getElementBounds,
   pointInsideBounds,
 } from "./bounds";
@@ -68,6 +69,7 @@ import type {
   ExcalidrawArrowElement,
   ExcalidrawBindableElement,
   ExcalidrawDiamondElement,
+  ExcalidrawTriangleElement,
   ExcalidrawElement,
   ExcalidrawEllipseElement,
   ExcalidrawFreeDrawElement,
@@ -471,6 +473,14 @@ export const intersectElementWithLineSegment = (
         offset,
         onlyFirst,
       );
+    case "triangle":
+      return intersectTriangleWithLineSegment(
+        element,
+        elementsMap,
+        line,
+        offset,
+        onlyFirst,
+      );
     case "ellipse":
       return intersectEllipseWithLineSegment(
         element,
@@ -697,6 +707,34 @@ const intersectDiamondWithLineSegment = (
 
   curveIntersections(
     corners,
+    rotatedIntersector,
+    intersections,
+    center,
+    element.angle,
+    onlyFirst,
+  );
+
+  return intersections;
+};
+
+const intersectTriangleWithLineSegment = (
+  element: ExcalidrawTriangleElement,
+  elementsMap: ElementsMap,
+  l: LineSegment<GlobalPoint>,
+  offset: number = 0,
+  onlyFirst = false,
+): GlobalPoint[] => {
+  const center = elementCenterPoint(element, elementsMap);
+
+  const rotatedA = pointRotateRads(l[0], center, -element.angle as Radians);
+  const rotatedB = pointRotateRads(l[1], center, -element.angle as Radians);
+  const rotatedIntersector = lineSegment(rotatedA, rotatedB);
+
+  const sides = getTriangleElementSides(element, offset);
+  const intersections: GlobalPoint[] = [];
+
+  lineIntersections(
+    sides,
     rotatedIntersector,
     intersections,
     center,

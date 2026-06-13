@@ -235,34 +235,64 @@ export const getElementsCorners = (
     const halfHeight = (y2 - y1) / 2;
 
     if (
-      (element.type === "diamond" || element.type === "ellipse") &&
+      (element.type === "diamond" ||
+        element.type === "triangle" ||
+        element.type === "ellipse") &&
       !boundingBoxCorners
     ) {
-      const leftMid = pointRotateRads<GlobalPoint>(
-        pointFrom(x1, y1 + halfHeight),
-        pointFrom(cx, cy),
-        element.angle,
-      );
-      const topMid = pointRotateRads<GlobalPoint>(
-        pointFrom(x1 + halfWidth, y1),
-        pointFrom(cx, cy),
-        element.angle,
-      );
-      const rightMid = pointRotateRads<GlobalPoint>(
-        pointFrom(x2, y1 + halfHeight),
-        pointFrom(cx, cy),
-        element.angle,
-      );
-      const bottomMid = pointRotateRads<GlobalPoint>(
-        pointFrom(x1 + halfWidth, y2),
-        pointFrom(cx, cy),
-        element.angle,
-      );
-      const center = pointFrom<GlobalPoint>(cx, cy);
+      if (element.type === "triangle") {
+        const topMid = pointRotateRads<GlobalPoint>(
+          pointFrom(cx, y1),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const leftMid = pointRotateRads<GlobalPoint>(
+          pointFrom((x1 + cx) / 2, (y1 + y2) / 2),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const rightMid = pointRotateRads<GlobalPoint>(
+          pointFrom((x2 + cx) / 2, (y1 + y2) / 2),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const bottomMid = pointRotateRads<GlobalPoint>(
+          pointFrom(x1 + halfWidth, y2),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const center = pointFrom<GlobalPoint>(cx, cy);
 
-      result = omitCenter
-        ? [leftMid, topMid, rightMid, bottomMid]
-        : [leftMid, topMid, rightMid, bottomMid, center];
+        result = omitCenter
+          ? [leftMid, topMid, rightMid, bottomMid]
+          : [leftMid, topMid, rightMid, bottomMid, center];
+      } else {
+        const leftMid = pointRotateRads<GlobalPoint>(
+          pointFrom(x1, y1 + halfHeight),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const topMid = pointRotateRads<GlobalPoint>(
+          pointFrom(x1 + halfWidth, y1),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const rightMid = pointRotateRads<GlobalPoint>(
+          pointFrom(x2, y1 + halfHeight),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const bottomMid = pointRotateRads<GlobalPoint>(
+          pointFrom(x1 + halfWidth, y2),
+          pointFrom(cx, cy),
+          element.angle,
+        );
+        const center = pointFrom<GlobalPoint>(cx, cy);
+
+        result = omitCenter
+          ? [leftMid, topMid, rightMid, bottomMid]
+          : [leftMid, topMid, rightMid, bottomMid, center];
+      }
     } else {
       const topLeft = pointRotateRads<GlobalPoint>(
         pointFrom(x1, y1),
@@ -1406,6 +1436,7 @@ export const isActiveToolNonLinearSnappable = (
     activeToolType === TOOL_TYPE.rectangle ||
     activeToolType === TOOL_TYPE.ellipse ||
     activeToolType === TOOL_TYPE.diamond ||
+    activeToolType === TOOL_TYPE.triangle ||
     activeToolType === TOOL_TYPE.frame ||
     activeToolType === TOOL_TYPE.magicframe ||
     activeToolType === TOOL_TYPE.image ||

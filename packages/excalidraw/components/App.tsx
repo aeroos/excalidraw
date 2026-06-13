@@ -9494,10 +9494,14 @@ class App extends React.Component<AppProps, AppState> {
       | "selection"
       | "rectangle"
       | "diamond"
+      | "triangle"
       | "ellipse"
       | "iframe"
       | "embeddable",
   ) {
+    if (elementType === "triangle") {
+      return null;
+    }
     return this.state.currentItemRoundness === "round"
       ? {
           type: isUsingAdaptiveRadius(elementType)

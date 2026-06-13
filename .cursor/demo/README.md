@@ -19,7 +19,7 @@ Reset code (local + GitHub `origin/demo-start` on **aeroos/excalidraw**): run `.
 
 Board: https://alecroos.atlassian.net/jira/software/projects/EXCL/list
 
-Reset moves **EXCL-1 … EXCL-8** back to **To Do**.
+Reset moves **EXCL-1 … EXCL-9** back to **To Do**.
 
 | Ticket | Summary | Suggested demo order |
 |--------|---------|----------------------|
@@ -31,5 +31,6 @@ Reset moves **EXCL-1 … EXCL-8** back to **To Do**.
 | [EXCL-5](https://alecroos.atlassian.net/browse/EXCL-5) | Fix duplicate selection over-selecting group siblings | 6 |
 | [EXCL-3](https://alecroos.atlassian.net/browse/EXCL-3) | Add Playwright smoke test | 7 |
 | [EXCL-1](https://alecroos.atlassian.net/browse/EXCL-1) | Add triangle shape tool | 8 |
+| [EXCL-9](https://alecroos.atlassian.net/browse/EXCL-9) | Add dash-dot stroke style to stroke style control | 9 (visual UI slice, ~45–60 min) |
 
 Plan file: `.cursor/plans/sdlc_demo_tickets_964657cf.plan.md`

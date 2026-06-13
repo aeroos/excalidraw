@@ -32,13 +32,13 @@ Verify: `git status --short` should be clean (aside from `.cursor/` untracked fi
 
 Cloud ID: `a698387e-120a-4b00-a93f-2a0356ecc090` (alecroos.atlassian.net)
 
-For each issue **EXCL-1** through **EXCL-8**:
+For each issue **EXCL-1** through **EXCL-9**:
 
 1. `getJiraIssue` — skip if status is already **To Do**
 2. `getTransitionsForJiraIssue` — find transition to **To Do** (may be named "To Do", "Reopen", or "Backlog" depending on board)
 3. `transitionJiraIssue` with that transition id
 
-If a ticket is **Done**, you may need a backward transition first. Transition all eight before the next demo run.
+If a ticket is **Done**, you may need a backward transition first. Transition all nine before the next demo run.
 
 Project board: https://alecroos.atlassian.net/jira/software/projects/EXCL/list
 
@@ -48,7 +48,7 @@ Report to the user:
 
 - Git local: on `demo-start` @ `demo-baseline`
 - Git remote: `origin/demo-start` (`aeroos/excalidraw` on GitHub) matches `demo-baseline` (unless `--no-push`)
-- Jira: EXCL-1 … EXCL-8 status (all should be To Do)
+- Jira: EXCL-1 … EXCL-9 status (all should be To Do)
 - Recommended demo tickets: **EXCL-7** (quick visual, ~15 min) or **EXCL-2** (unit tests; cloud agent)
 
 Reference: [.cursor/demo/README.md](../../demo/README.md)

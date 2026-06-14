@@ -63,6 +63,7 @@ export default defineConfig({
   },
   //@ts-ignore
   test: {
+    exclude: ["**/node_modules/**", "**/e2e/**"],
     // Since hooks are running in stack in v2, which means all hooks run serially whereas
     // we need to run them in parallel
     sequence: {

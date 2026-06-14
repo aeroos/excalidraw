@@ -208,6 +208,38 @@ exports[`restoreElements > should restore correctly with rectangle, ellipse and 
 }
 `;
 
+exports[`restoreElements > should restore dash-dot stroke style 1`] = `
+{
+  "angle": 0,
+  "backgroundColor": "transparent",
+  "boundElements": [],
+  "customData": undefined,
+  "fillStyle": "solid",
+  "frameId": null,
+  "groupIds": [],
+  "height": 100,
+  "id": "id31",
+  "index": "a0",
+  "isDeleted": false,
+  "link": null,
+  "locked": false,
+  "opacity": 100,
+  "roughness": 1,
+  "roundness": null,
+  "seed": Any<Number>,
+  "strokeColor": "#1e1e1e",
+  "strokeStyle": "dash-dot",
+  "strokeWidth": 2,
+  "type": "rectangle",
+  "updated": 1,
+  "version": 2,
+  "versionNonce": Any<Number>,
+  "width": 100,
+  "x": 0,
+  "y": 0,
+}
+`;
+
 exports[`restoreElements > should restore freedraw element correctly 1`] = `
 {
   "angle": 0,

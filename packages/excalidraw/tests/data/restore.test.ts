@@ -576,6 +576,22 @@ describe("restoreElements", () => {
     });
   });
 
+  it("should restore dash-dot stroke style", () => {
+    const element = API.createElement({
+      type: "rectangle",
+      strokeStyle: "dash-dot",
+      strokeWidth: 2,
+    });
+
+    const [restored] = restore.restoreElements([element], null);
+
+    expect(restored.strokeStyle).toBe("dash-dot");
+    expect(restored).toMatchSnapshot({
+      seed: expect.any(Number),
+      versionNonce: expect.any(Number),
+    });
+  });
+
   it("bump versions of local duplicate elements when supplied", () => {
     const rectangle = API.createElement({ type: "rectangle" }); // version=1
     const ellipse = API.createElement({ type: "ellipse" });

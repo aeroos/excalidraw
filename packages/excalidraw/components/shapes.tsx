@@ -54,7 +54,7 @@ export const SHAPES = [
   {
     icon: TriangleIcon,
     value: "triangle",
-    key: KEYS.G,
+    key: null,
     numericKey: null,
     fillable: true,
     toolbar: true,

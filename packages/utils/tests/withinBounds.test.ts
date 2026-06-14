@@ -17,6 +17,15 @@ const makeElement = (x: number, y: number, width: number, height: number) =>
     height,
   });
 
+const makeTriangle = (x: number, y: number, width: number, height: number) =>
+  API.createElement({
+    type: "triangle",
+    x,
+    y,
+    width,
+    height,
+  });
+
 const makeBBox = (
   minX: number,
   minY: number,
@@ -261,4 +270,34 @@ describe("elementsOverlappingBBox()", () => {
   });
 
   // TODO test linear, freedraw, and diamond element types (+rotated)
+});
+
+describe("triangle elements", () => {
+  it("should treat triangle bounding boxes like other non-linear shapes", () => {
+    const bbox = makeBBox(0, 0, 120, 120);
+    const triangleInside = makeTriangle(10, 10, 90, 90);
+    const triangleOutside = makeTriangle(130, 130, 40, 40);
+    const triangleOverlapping = makeTriangle(-10, -10, 50, 50);
+
+    expect(isElementInsideBBox(triangleInside, bbox)).toBe(true);
+    expect(isElementInsideBBox(triangleOutside, bbox)).toBe(false);
+    expect(
+      elementPartiallyOverlapsWithOrContainsBBox(triangleOverlapping, bbox),
+    ).toBe(true);
+  });
+
+  it("should include triangles when filtering overlapping elements", () => {
+    const bbox = makeBBox(0, 0, 100, 100);
+
+    const triangleInside = makeTriangle(10, 10, 80, 80);
+    const triangleOutside = makeTriangle(120, 120, 40, 40);
+
+    expect(
+      elementsOverlappingBBox({
+        bounds: bbox,
+        type: "inside",
+        elements: [triangleInside, triangleOutside],
+      }),
+    ).toEqual([triangleInside]);
+  });
 });

@@ -17,6 +17,7 @@ import * as exportUtils from "../../scene/export";
 import {
   diamondFixture,
   ellipseFixture,
+  rectangleFixture,
   rectangleWithLinkFixture,
   textFixture,
 } from "../fixtures/elementFixture";
@@ -67,6 +68,25 @@ describe("exportToSvg", () => {
     );
 
     expect(svgElement).toMatchSnapshot();
+  });
+
+  it("with dash-dot stroke style", async () => {
+    const svgElement = await exportUtils.exportToSvg(
+      [
+        {
+          ...rectangleFixture,
+          height: ELEMENT_HEIGHT,
+          width: ELEMENT_WIDTH,
+          strokeStyle: "dash-dot",
+          index: "a0" as FractionalIndex,
+        },
+      ] as NonDeletedExcalidrawElement[],
+      DEFAULT_OPTIONS,
+      null,
+    );
+
+    const pathsWithDash = svgElement.querySelectorAll("path[stroke-dasharray]");
+    expect(pathsWithDash.length).toBeGreaterThan(0);
   });
 
   it("with a CJK font", async () => {

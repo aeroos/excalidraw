@@ -49,6 +49,7 @@ export const RadioSelection = <T extends Object>(
             name={props.group}
             onChange={() => props.onChange(option.value)}
             checked={props.value === option.value}
+            aria-label={option.text}
             data-testid={option.testId}
           />
           {option.icon}

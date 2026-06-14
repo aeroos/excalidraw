@@ -48,7 +48,7 @@ describe("actionStyles", () => {
     // Stroke width
     fireEvent.click(screen.getByTitle("Bold"));
     // Stroke style
-    fireEvent.click(screen.getByTitle("Dotted"));
+    fireEvent.click(screen.getByRole("radio", { name: "Dash-dot" }));
     // Roughness
     fireEvent.click(screen.getByTitle("Cartoonist"));
     // Opacity
@@ -79,7 +79,7 @@ describe("actionStyles", () => {
     expect(firstRect.backgroundColor).toBe("#a5d8ff");
     expect(firstRect.fillStyle).toBe("cross-hatch");
     expect(firstRect.strokeWidth).toBe(2); // Bold: 2
-    expect(firstRect.strokeStyle).toBe("dotted");
+    expect(firstRect.strokeStyle).toBe("dash-dot");
     expect(firstRect.roughness).toBe(2); // Cartoonist: 2
     expect(firstRect.opacity).toBe(60);
   });

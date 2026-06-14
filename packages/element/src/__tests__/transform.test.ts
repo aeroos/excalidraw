@@ -96,6 +96,32 @@ describe("Test Transform", () => {
     });
   });
 
+  it("should transform shape element with dash-dot stroke style", () => {
+    const elements = [
+      {
+        type: "rectangle",
+        x: 100,
+        y: 100,
+        width: 200,
+        height: 100,
+        strokeStyle: "dash-dot",
+        strokeWidth: 2,
+      },
+    ];
+
+    const [element] = convertToExcalidrawElements(
+      elements as ExcalidrawElementSkeleton[],
+      opts,
+    );
+
+    expect(element.strokeStyle).toBe("dash-dot");
+    expect(element).toMatchSnapshot({
+      seed: expect.any(Number),
+      versionNonce: expect.any(Number),
+      id: expect.any(String),
+    });
+  });
+
   it("should transform text element", () => {
     const elements = [
       {

@@ -1,0 +1,12 @@
+---
+description: Plan-first, minimal-diff change discipline for all work in this repo
+alwaysApply: true
+---
+
+# Change discipline
+
+- Plan before implementing anything non-trivial. Identify files, behavior, accessibility impact, and tests first. Do not edit during planning.
+- Keep diffs minimal and scoped to the ticket. Stop and explain before any broader refactor.
+- Do not make unrelated changes, reformat untouched code, or bump dependencies unless the task requires it.
+- Prefer existing conventions over introducing new patterns.
+- Before opening a PR: targeted tests pass, types pass, and the diff is small enough to review in one sitting.

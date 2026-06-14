@@ -1,0 +1,15 @@
+---
+description: Conventions for changes inside the published @excalidraw/excalidraw component library
+globs: packages/excalidraw/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# packages/excalidraw conventions
+
+This package is the published @excalidraw/excalidraw React library. Changes here ship to external consumers, so keep them conservative.
+
+- Reuse existing React component and props patterns in this package. Match the existing stroke-style control pattern when adding new style options.
+- Keep UI changes localized. Do not introduce a shared abstraction unless the plan explicitly justifies it.
+- Respect package boundaries: import from @excalidraw/common, @excalidraw/element, @excalidraw/math, and @excalidraw/utils rather than reaching across with relative paths.
+- Prefer behavior and accessibility assertions over snapshot-only tests.
+- Follow existing test utilities and file naming in this package.

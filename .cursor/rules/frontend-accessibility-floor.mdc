@@ -1,0 +1,15 @@
+---
+description: Accessibility floor for any interactive frontend UI change in the app or component library
+globs: excalidraw-app/**/*.{ts,tsx}, packages/excalidraw/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Accessibility floor for frontend UI changes
+
+When adding or modifying interactive UI:
+
+- Interactive elements must have an accessible name and an appropriate role.
+- Never encode meaning by color alone. Provide a non-color cue (shape, label, pattern, icon).
+- Preserve keyboard accessibility: focusable, operable, and visible focus state.
+- Prefer existing component and styling conventions over new abstractions.
+- Add or update role-based and name-based tests when practical (query by role and accessible name, not by test id or snapshot).

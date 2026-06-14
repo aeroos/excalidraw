@@ -1,0 +1,15 @@
+---
+description: Test conventions for this monorepo (Vitest + React Testing Library)
+globs: **/*.test.ts, **/*.test.tsx
+alwaysApply: false
+---
+
+# Testing conventions
+
+This repo uses Vitest with React Testing Library. When writing or updating tests:
+
+- Query by role and accessible name (getByRole, getByLabelText). Avoid snapshot-only tests and avoid querying by test id unless no accessible query exists.
+- Assert observable behavior and accessibility, not implementation details.
+- Match existing describe/it naming and the existing test utilities in the package under test.
+- Run yarn test for the suite and yarn test:typecheck for types. Run yarn test:update before committing if snapshots are intentionally changed.
+- A change is not done until its targeted tests pass locally.

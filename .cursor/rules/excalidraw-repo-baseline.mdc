@@ -1,5 +1,5 @@
 ---
-description: Apply to all requests in the Excalidraw repository. Establish repo-navigation, implementation, and verification expectations before editing code.
+description: Baseline repository behavior for all work in the Excalidraw monorepo.
 alwaysApply: true
 ---
 
@@ -7,43 +7,27 @@ alwaysApply: true
 
 You are working in the Excalidraw monorepo.
 
-## Repo orientation
+Before editing code, first identify the likely package or app boundary for the request.
 
-Before editing, identify the relevant package or app boundary. Do not assume the target file from filename alone.
+Use these repo boundaries as orientation:
 
-Common areas:
-- `excalidraw-app/` contains the hosted Excalidraw web app.
-- `packages/excalidraw/` contains the reusable Excalidraw editor package.
-- `packages/common/`, `packages/utils/`, and nearby package folders may contain shared logic.
-- `examples/` contains integration examples and should not be treated as production app logic unless the task explicitly targets examples.
-- `dev-docs/` and `CONTRIBUTING.md` should be consulted when workflow, architecture, or contribution conventions are unclear.
+- `excalidraw-app/` is the hosted Excalidraw web app.
+- `packages/excalidraw/` is the reusable Excalidraw editor package.
+- `examples/` contains integration examples; do not treat examples as production app logic unless the task explicitly targets examples.
+- `dev-docs/` and `CONTRIBUTING.md` are canonical references for development and contribution workflow.
 
-## Working style
+For non-trivial changes:
 
-For every non-trivial change:
-1. First explain which files or packages are likely involved.
-2. Inspect nearby existing patterns before proposing new abstractions.
-3. Prefer minimal, localized changes over broad refactors.
-4. Preserve existing public APIs unless the task explicitly asks for an API change.
-5. Avoid changing generated, lock, build, or localization output unless required by the task.
-6. If behavior touches collaboration, persistence, rendering, export, or element state, call out possible regression risk before editing.
+1. State which package, app, or directory you believe owns the change.
+2. Inspect nearby files before introducing a new abstraction.
+3. Prefer the smallest localized change that satisfies the request.
+4. Preserve public APIs unless the task explicitly asks for an API change.
+5. Avoid editing generated files, lockfiles, build output, or localization output unless required.
+6. Before finalizing, recommend the smallest relevant verification path.
 
-## TypeScript and React expectations
+When responding, summarize:
 
-- Follow existing TypeScript types rather than introducing broad `any` usage.
-- Reuse existing hooks, helpers, constants, and element utilities where possible.
-- Keep UI changes consistent with surrounding component patterns.
-- Do not introduce new dependencies without explaining why existing utilities are insufficient.
-
-## Verification
-
-Before finalizing, suggest the smallest relevant verification path:
-- typecheck or lint when the change is type/syntax-sensitive;
-- targeted tests when touching utilities or element behavior;
-- manual browser verification when touching canvas interaction, rendering, export, or collaboration flows.
-
-In the final response, summarize:
 - files changed;
-- why the chosen area was correct;
+- why this was the correct area of the repo;
 - verification performed or recommended;
-- any risks or follow-up work.
+- notable risks or follow-up work.

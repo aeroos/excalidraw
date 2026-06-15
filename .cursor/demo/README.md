@@ -9,6 +9,8 @@
 
 Reset code (local + GitHub `origin/demo-start` on **aeroos/excalidraw**): run `.cursor/skills/excalidraw-demo-reset/scripts/reset-demo.sh` or ask Cursor to **reset demo** (uses the **excalidraw-demo-reset** skill).
 
+Parachute preview (finished EXCL-9 for browser fallback): run `.cursor/skills/excalidraw-demo-parachute/scripts/parachute-preview.sh` or ask Cursor to **demo parachute** (uses the **excalidraw-demo-parachute** skill). Requires tag `demo-excl-9-ready` on `demo/excl-9-parachute`.
+
 **Remote:** `origin` → **aeroos/excalidraw** (your fork; the only remote needed for demos).
 
 **CI:** GitHub Actions are removed on `demo-start` so demo PRs are not blocked by upstream Lint / Semantic PR title / Coverage checks.

@@ -43,6 +43,18 @@ describe("restoreElements", () => {
     expect(restoredElements.length).toBe(elements.length);
   });
 
+  it("should preserve dash-dot stroke style on restore", () => {
+    const element = API.createElement({
+      type: "rectangle",
+      strokeStyle: "dash-dot",
+      strokeWidth: 2,
+    });
+
+    const [restoredElement] = restore.restoreElements([element], null);
+    expect(restoredElement.strokeStyle).toBe("dash-dot");
+    expect(restoredElement.strokeWidth).toBe(2);
+  });
+
   it("when imported data state is null it should return an empty array of elements", () => {
     const restoredElements = restore.restoreElements(null, null);
     expect(restoredElements.length).toBe(0);

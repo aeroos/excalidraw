@@ -1225,6 +1225,17 @@ export const StrokeStyleDottedIcon = createIcon(
   tablerIconProps,
 );
 
+export const StrokeStyleDashDotIcon = createIcon(
+  <g strokeWidth="2">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M5 12h3" />
+    <path d="M12 12v.01" />
+    <path d="M17 12h3" />
+    <path d="M24 12v.01" />
+  </g>,
+  tablerIconProps,
+);
+
 export const SloppinessArchitectIcon = createIcon(
   <path
     d="M2.5 12.038c1.655-.885 5.9-3.292 8.568-4.354 2.668-1.063.101 2.821 1.32 3.104 1.218.283 5.112-1.814 5.112-1.814"

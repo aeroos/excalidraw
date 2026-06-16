@@ -34,6 +34,7 @@
     "strokeStyle_solid": "Solid",
     "strokeStyle_dashed": "Dashed",
     "strokeStyle_dotted": "Dotted",
+    "strokeStyle_dashDot": "Dash-dot",
     "sloppiness": "Sloppiness",
     "opacity": "Opacity",
     "textAlign": "Text align",

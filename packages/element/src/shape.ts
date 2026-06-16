@@ -167,6 +167,13 @@ const getDashArrayDashed = (strokeWidth: number) => [8, 8 + strokeWidth];
 
 const getDashArrayDotted = (strokeWidth: number) => [1.5, 6 + strokeWidth];
 
+const getDashArrayDashDot = (strokeWidth: number) => [
+  8,
+  3,
+  1.5,
+  3 + strokeWidth,
+];
+
 function adjustRoughness(element: ExcalidrawElement): number {
   const roughness = element.roughness;
 
@@ -202,6 +209,8 @@ export const generateRoughOptions = (
         ? getDashArrayDashed(element.strokeWidth)
         : element.strokeStyle === "dotted"
         ? getDashArrayDotted(element.strokeWidth)
+        : element.strokeStyle === "dash-dot"
+        ? getDashArrayDashDot(element.strokeWidth)
         : undefined,
     // for non-solid strokes, disable multiStroke because it tends to make
     // dashes/dots overlay each other

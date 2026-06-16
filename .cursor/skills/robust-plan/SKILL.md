@@ -13,6 +13,8 @@ Turn a ticket into an implementation plan the agent can execute and verify again
 
 Reference: [.cursor/demo/README.md](../../demo/README.md)
 
+PR handoff (post-implementation, not during planning): [.cursor/skills/prepare-pr/SKILL.md](../prepare-pr/SKILL.md)
+
 ## Steps
 
 ### 0. Branch setup (read-only checks)
@@ -48,7 +50,10 @@ Define verifiable success criteria: concrete, checkable outcomes the agent can c
 Always include:
 
 - Feature branch created from `demo-start` (implementation not on `demo-start`)
-- Draft PR opened: base `demo-start`, head `<feature-branch>` (use `gh pr create --draft`)
+- **prepare-pr** skill run after implementation and before opening the PR (read [prepare-pr](../prepare-pr/SKILL.md); do not duplicate its checklist here)
+- Draft PR opened using prepare-pr output: base `demo-start`, head `<feature-branch>` (use `gh pr create --draft`)
+
+Plans should include a final todo: **Run prepare-pr, then open draft PR**. Do not treat `gh pr create` alone as sufficient.
 
 ### 5. Questions
 
@@ -68,11 +73,15 @@ Every plan **must** include a **Branch setup** section near the top:
 | Ticket | EXCL-N |
 | Base branch | `demo-start` |
 | Feature branch | `cursor/excl-N-<short-slug>` |
-| PR | draft; base `demo-start` ← head `<feature-branch>` |
+| PR | draft; base `demo-start` ← head `<feature-branch>` (after **prepare-pr**) |
 
 **Before editing code (first implementation step):**
 1. `git checkout demo-start && git pull origin demo-start`
 2. `git checkout -b cursor/excl-N-<short-slug>`
+
+**Before opening the PR (last implementation step):**
+1. Run the **prepare-pr** skill (`.cursor/skills/prepare-pr/SKILL.md`)
+2. Open draft PR with prepare-pr's description: `gh pr create --draft`
 
 **Out of scope:** Committing on `demo-start`
 ```

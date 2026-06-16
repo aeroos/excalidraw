@@ -95,6 +95,7 @@ import {
   ArrowheadNoneIcon,
   StrokeStyleDashedIcon,
   StrokeStyleDottedIcon,
+  StrokeStyleDashDotIcon,
   TextAlignTopIcon,
   TextAlignBottomIcon,
   TextAlignMiddleIcon,
@@ -684,16 +685,25 @@ export const actionChangeStrokeStyle = register<
               value: "solid",
               text: t("labels.strokeStyle_solid"),
               icon: StrokeWidthBaseIcon,
+              testId: "strokeStyle-solid",
             },
             {
               value: "dashed",
               text: t("labels.strokeStyle_dashed"),
               icon: StrokeStyleDashedIcon,
+              testId: "strokeStyle-dashed",
             },
             {
               value: "dotted",
               text: t("labels.strokeStyle_dotted"),
               icon: StrokeStyleDottedIcon,
+              testId: "strokeStyle-dotted",
+            },
+            {
+              value: "dash-dot",
+              text: t("labels.strokeStyle_dashDot"),
+              icon: StrokeStyleDashDotIcon,
+              testId: "strokeStyle-dash-dot",
             },
           ]}
           value={getFormValue(

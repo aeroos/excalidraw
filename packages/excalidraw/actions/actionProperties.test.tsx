@@ -80,6 +80,18 @@ describe("element locking", () => {
       const centerTextAlign = queryByTestId(document.body, `align-right`);
       expect(centerTextAlign).toBeChecked();
     });
+
+    it("should show dash-dot stroke style option for rectangle tool", () => {
+      UI.clickTool("rectangle");
+
+      API.setAppState({
+        currentItemStrokeStyle: "dash-dot",
+      });
+
+      expect(
+        queryByTestId(document.body, "strokeStyle-dash-dot"),
+      ).toBeChecked();
+    });
   });
 
   describe("properties when elements selected", () => {
@@ -94,6 +106,19 @@ describe("element locking", () => {
 
       const crossHatchButton = queryByTestId(document.body, `fill-cross-hatch`);
       expect(crossHatchButton).toHaveClass("active");
+    });
+
+    it("should highlight dash-dot stroke style when element has dash-dot stroke", () => {
+      const rect = API.createElement({
+        type: "rectangle",
+        strokeStyle: "dash-dot",
+      });
+      API.setElements([rect]);
+      API.setSelectedElements([rect]);
+
+      expect(
+        queryByTestId(document.body, "strokeStyle-dash-dot"),
+      ).toBeChecked();
     });
 
     it("should not show fill style selected element's background is transparent", () => {

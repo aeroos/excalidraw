@@ -24,6 +24,7 @@ import {
   mockBoundingClientRect,
   restoreOriginalGetBoundingClientRect,
   assertSelectedElements,
+  getCloneByOrigId,
   unmountComponent,
 } from "./test-utils";
 
@@ -1396,6 +1397,78 @@ describe("selectedElementIds stability", () => {
     mouse.up();
 
     expect(h.state.selectedElementIds).toBe(selectedElementIds_2);
+  });
+});
+
+describe("duplicating grouped selection", () => {
+  beforeEach(async () => {
+    await render(<Excalidraw handleKeyboardGlobally={true} />);
+  });
+
+  it("should select only duplicated group members, not frame children pulled in via group expansion", () => {
+    const frame = API.createElement({
+      type: "frame",
+      groupIds: ["A"],
+    });
+    const [rectangle, text] = API.createTextContainer({
+      frameId: frame.id,
+      groupIds: ["A"],
+    });
+    const ellipse = API.createElement({
+      type: "ellipse",
+      groupIds: ["A"],
+    });
+
+    API.setElements([rectangle, text, frame, ellipse]);
+    API.setSelectedElements([frame, ellipse]);
+
+    Keyboard.withModifierKeys({ ctrl: true }, () => {
+      Keyboard.keyPress(KEYS.D);
+    });
+
+    assertSelectedElements(
+      getCloneByOrigId(frame.id)!.id,
+      getCloneByOrigId(ellipse.id)!.id,
+    );
+    expect(h.state.selectedElementIds[rectangle.id]).toBeFalsy();
+    expect(h.state.selectedElementIds[text.id]).toBeFalsy();
+    expect(h.state.selectedElementIds[getCloneByOrigId(rectangle.id)!.id]).toBeFalsy();
+    expect(h.state.selectedElementIds[getCloneByOrigId(text.id)!.id]).toBeFalsy();
+  });
+
+  it("should select only the duplicated clone when duplicating one grouped element", () => {
+    const rect1 = API.createElement({
+      type: "rectangle",
+      x: 0,
+      y: 0,
+      width: 50,
+      height: 50,
+      groupIds: ["A"],
+    });
+    const rect2 = API.createElement({
+      type: "rectangle",
+      x: 100,
+      y: 0,
+      width: 50,
+      height: 50,
+      groupIds: ["A"],
+    });
+
+    API.setElements([rect1, rect2]);
+
+    Keyboard.withModifierKeys({ ctrl: true }, () => {
+      mouse.clickOn(rect1);
+    });
+    assertSelectedElements(rect1.id);
+
+    Keyboard.withModifierKeys({ ctrl: true }, () => {
+      Keyboard.keyPress(KEYS.D);
+    });
+
+    const selectedElements = API.getSelectedElements();
+    expect(selectedElements).toHaveLength(1);
+    expect(selectedElements[0].id).not.toBe(rect1.id);
+    expect(h.state.selectedElementIds[rect2.id]).toBeFalsy();
   });
 });
 

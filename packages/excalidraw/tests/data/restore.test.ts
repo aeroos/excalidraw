@@ -576,6 +576,52 @@ describe("restoreElements", () => {
     });
   });
 
+  it("should restore fillStyle dots", () => {
+    const element = API.createElement({
+      type: "rectangle",
+      fillStyle: "dots",
+      backgroundColor: "blue",
+    });
+
+    const restoredElements = restore.restoreElements([element], null);
+
+    expect(restoredElements[0].fillStyle).toBe("dots");
+  });
+
+  it("should fallback invalid fillStyle to default", () => {
+    const element = API.createElement({
+      type: "rectangle",
+      // @ts-expect-error testing invalid fillStyle
+      fillStyle: "invalid",
+    });
+
+    const restoredElements = restore.restoreElements([element], null);
+
+    expect(restoredElements[0].fillStyle).toBe("solid");
+  });
+
+  it("should fallback missing or empty fillStyle to default", () => {
+    const missingFillStyle = API.createElement({
+      type: "rectangle",
+    });
+    // @ts-expect-error testing missing fillStyle
+    delete missingFillStyle.fillStyle;
+
+    const emptyFillStyle = API.createElement({
+      type: "rectangle",
+      // @ts-expect-error testing empty fillStyle
+      fillStyle: "",
+    });
+
+    const restoredElements = restore.restoreElements(
+      [missingFillStyle, emptyFillStyle],
+      null,
+    );
+
+    expect(restoredElements[0].fillStyle).toBe("solid");
+    expect(restoredElements[1].fillStyle).toBe("solid");
+  });
+
   it("bump versions of local duplicate elements when supplied", () => {
     const rectangle = API.createElement({ type: "rectangle" }); // version=1
     const ellipse = API.createElement({ type: "ellipse" });

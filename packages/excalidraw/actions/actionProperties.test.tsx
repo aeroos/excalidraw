@@ -56,6 +56,11 @@ describe("element locking", () => {
       });
       const solidFillStyle = queryByTestId(document.body, `fill-solid`);
       expect(solidFillStyle).toHaveClass("active");
+      API.setAppState({
+        currentItemFillStyle: "dots",
+      });
+      const patternFillButton = queryByTestId(document.body, `fill-pattern`);
+      expect(patternFillButton).toHaveClass("active");
     });
 
     it("should not show fill style when background transparent", () => {
@@ -68,6 +73,7 @@ describe("element locking", () => {
       const hachureFillButton = queryByTestId(document.body, `fill-hachure`);
 
       expect(hachureFillButton).toBe(null);
+      expect(queryByTestId(document.body, `fill-pattern`)).toBe(null);
     });
 
     it("should show horizontal text align for text tool", () => {
@@ -94,6 +100,19 @@ describe("element locking", () => {
 
       const crossHatchButton = queryByTestId(document.body, `fill-cross-hatch`);
       expect(crossHatchButton).toHaveClass("active");
+    });
+
+    it("should show pattern fill button when background is set", () => {
+      const rect = API.createElement({
+        type: "rectangle",
+        backgroundColor: "red",
+        fillStyle: "dots",
+      });
+      API.setElements([rect]);
+      API.setSelectedElements([rect]);
+
+      const patternFillButton = queryByTestId(document.body, `fill-pattern`);
+      expect(patternFillButton).toHaveClass("active");
     });
 
     it("should not show fill style selected element's background is transparent", () => {

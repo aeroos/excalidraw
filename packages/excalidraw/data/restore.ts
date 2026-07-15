@@ -324,6 +324,14 @@ const repairBinding = <T extends ExcalidrawArrowElement>(
   return null;
 };
 
+const VALID_FILL_STYLES = new Set([
+  "hachure",
+  "cross-hatch",
+  "solid",
+  "zigzag",
+  "dots",
+]);
+
 const restoreElementWithProperties = <
   T extends Required<Omit<ExcalidrawElement, "customData">> & {
     customData?: ExcalidrawElement["customData"];
@@ -352,7 +360,9 @@ const restoreElementWithProperties = <
     index: element.index ?? null,
     isDeleted: element.isDeleted ?? false,
     id: element.id || randomId(),
-    fillStyle: element.fillStyle || DEFAULT_ELEMENT_PROPS.fillStyle,
+    fillStyle: VALID_FILL_STYLES.has(element.fillStyle)
+      ? element.fillStyle
+      : DEFAULT_ELEMENT_PROPS.fillStyle,
     strokeWidth: element.strokeWidth || DEFAULT_ELEMENT_PROPS.strokeWidth,
     strokeStyle: element.strokeStyle ?? DEFAULT_ELEMENT_PROPS.strokeStyle,
     roughness: element.roughness ?? DEFAULT_ELEMENT_PROPS.roughness,

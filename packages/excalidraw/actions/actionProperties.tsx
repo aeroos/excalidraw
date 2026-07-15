@@ -101,6 +101,7 @@ import {
   FillHachureIcon,
   FillCrossHatchIcon,
   FillSolidIcon,
+  FillPatternIcon,
   SloppinessArchitectIcon,
   SloppinessArtistIcon,
   SloppinessCartoonistIcon,
@@ -517,6 +518,12 @@ export const actionChangeFillStyle = register<ExcalidrawElement["fillStyle"]>({
                 text: t("labels.solid"),
                 icon: FillSolidIcon,
                 testId: `fill-solid`,
+              },
+              {
+                value: "dots",
+                text: t("labels.pattern"),
+                icon: FillPatternIcon,
+                testId: `fill-pattern`,
               },
             ]}
             value={getFormValue(

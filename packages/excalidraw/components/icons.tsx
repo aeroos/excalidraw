@@ -1151,6 +1151,44 @@ export const FillSolidIcon = createIcon(
   { ...modifiedTablerIconProps, fill: "currentColor" },
 );
 
+export const FillPatternIcon = createIcon(
+  <>
+    <path
+      d="M5.879 2.625h8.242a3.254 3.254 0 0 1 3.254 3.254v8.242a3.254 3.254 0 0 1-3.254 3.254H5.88a3.254 3.254 0 0 1-3.254-3.254V5.88a3.254 3.254 0 0 1 3.254-3.254Z"
+      stroke="currentColor"
+      strokeWidth="1.25"
+    />
+    <mask
+      id="FillPatternIcon"
+      style={{ maskType: "alpha" }}
+      maskUnits="userSpaceOnUse"
+      x={2}
+      y={2}
+      width={16}
+      height={16}
+    >
+      <path
+        d="M5.879 2.625h8.242a3.254 3.254 0 0 1 3.254 3.254v8.242a3.254 3.254 0 0 1-3.254 3.254H5.88a3.254 3.254 0 0 1-3.254-3.254V5.88a3.254 3.254 0 0 1 3.254-3.254Z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="1.25"
+      />
+    </mask>
+    <g mask="url(#FillPatternIcon)">
+      <circle cx="5.5" cy="5.5" r="1.1" fill="currentColor" />
+      <circle cx="10" cy="5.5" r="1.1" fill="currentColor" />
+      <circle cx="14.5" cy="5.5" r="1.1" fill="currentColor" />
+      <circle cx="5.5" cy="10" r="1.1" fill="currentColor" />
+      <circle cx="10" cy="10" r="1.1" fill="currentColor" />
+      <circle cx="14.5" cy="10" r="1.1" fill="currentColor" />
+      <circle cx="5.5" cy="14.5" r="1.1" fill="currentColor" />
+      <circle cx="10" cy="14.5" r="1.1" fill="currentColor" />
+      <circle cx="14.5" cy="14.5" r="1.1" fill="currentColor" />
+    </g>
+  </>,
+  modifiedTablerIconProps,
+);
+
 export const StrokeWidthBaseIcon = createIcon(
   <>
     <path

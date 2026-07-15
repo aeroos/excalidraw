@@ -25,6 +25,8 @@ import {
   deconstructRectanguloidElement,
   elementCenterPoint,
   getDiamondBaseCorners,
+  getTriangleElementSides,
+  getTrianglePoints,
   FOCUS_POINT_SIZE,
   getOmitSidesForEditorInterface,
   getTransformHandles,
@@ -323,6 +325,25 @@ const renderBindingHighlightForBindableElement_simple = (
           );
           context.closePath();
           context.stroke();
+          break;
+        case "triangle":
+          {
+            const segments = getTriangleElementSides(suggestedBinding.element);
+
+            segments.forEach((segment) => {
+              context.beginPath();
+              context.moveTo(
+                segment[0][0] - suggestedBinding.element.x,
+                segment[0][1] - suggestedBinding.element.y,
+              );
+              context.lineTo(
+                segment[1][0] - suggestedBinding.element.x,
+                segment[1][1] - suggestedBinding.element.y,
+              );
+              context.stroke();
+            });
+          }
+
           break;
         case "diamond":
           {
@@ -665,6 +686,25 @@ const renderBindingHighlightForBindableElement_complex = (
           context.closePath();
           context.stroke();
           break;
+        case "triangle":
+          {
+            const segments = getTriangleElementSides(element, offset);
+
+            segments.forEach((segment) => {
+              context.beginPath();
+              context.moveTo(
+                segment[0][0] - element.x + offset,
+                segment[0][1] - element.y + offset,
+              );
+              context.lineTo(
+                segment[1][0] - element.x + offset,
+                segment[1][1] - element.y + offset,
+              );
+              context.stroke();
+            });
+          }
+
+          break;
         case "diamond":
           {
             const [segments, curves] = deconstructDiamondElement(
@@ -820,7 +860,27 @@ const renderBindingHighlightForBindableElement_complex = (
       const cutoutRadius = midpointRadius + cutoutPadding;
 
       let midpoints;
-      if (element.type === "diamond") {
+      if (element.type === "triangle") {
+        const [topX, topY, rightX, rightY, leftX, leftY] =
+          getTrianglePoints(element);
+        const center = elementCenterPoint(element, allElementsMap);
+
+        midpoints = [
+          { x: (topX + rightX) / 2, y: (topY + rightY) / 2 },
+          { x: (rightX + leftX) / 2, y: (rightY + leftY) / 2 },
+          { x: (leftX + topX) / 2, y: (leftY + topY) / 2 },
+        ].map(({ x, y }) => {
+          const rotatedPoint = pointRotateRads(
+            pointFrom(element.x + x, element.y + y),
+            center,
+            element.angle,
+          );
+          return {
+            x: rotatedPoint[0] - element.x,
+            y: rotatedPoint[1] - element.y,
+          };
+        });
+      } else if (element.type === "diamond") {
         const [, curves] = deconstructDiamondElement(element);
         const center = elementCenterPoint(element, allElementsMap);
 

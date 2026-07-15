@@ -203,6 +203,27 @@ export class ElementBounds {
       const maxX = Math.max(x11, x12, x22, x21);
       const maxY = Math.max(y11, y12, y22, y21);
       bounds = [minX, minY, maxX, maxY];
+    } else if (element.type === "triangle") {
+      const [x11, y11] = pointRotateRads(
+        pointFrom(cx, y1),
+        pointFrom(cx, cy),
+        element.angle,
+      );
+      const [x12, y12] = pointRotateRads(
+        pointFrom(x2, y2),
+        pointFrom(cx, cy),
+        element.angle,
+      );
+      const [x13, y13] = pointRotateRads(
+        pointFrom(x1, y2),
+        pointFrom(cx, cy),
+        element.angle,
+      );
+      const minX = Math.min(x11, x12, x13);
+      const minY = Math.min(y11, y12, y13);
+      const maxX = Math.max(x11, x12, x13);
+      const maxY = Math.max(y11, y12, y13);
+      bounds = [minX, minY, maxX, maxY];
     } else if (element.type === "ellipse") {
       const w = (x2 - x1) / 2;
       const h = (y2 - y1) / 2;
@@ -369,6 +390,9 @@ export const getElementLineSegments = (
     const rotatedSides = getRotatedSides(sides, center, element.angle);
 
     return [...rotatedSides, ...cornerSegments];
+  } else if (element.type === "triangle") {
+    const sides = getTriangleElementSides(element);
+    return getRotatedSides(sides, center, element.angle);
   } else if (shape.type === "polygon") {
     if (isTextElement(element)) {
       const container = getContainerElement(element, elementsMap);
@@ -535,6 +559,40 @@ export const getDiamondPoints = (element: ExcalidrawElement) => {
   const leftY = rightY;
 
   return [topX, topY, rightX, rightY, bottomX, bottomY, leftX, leftY];
+};
+
+export const getTrianglePoints = (element: ExcalidrawElement) => {
+  const topX = Math.floor(element.width / 2) + 1;
+  const topY = 0;
+  const rightX = element.width;
+  const rightY = element.height;
+  const leftX = 0;
+  const leftY = element.height;
+
+  return [topX, topY, rightX, rightY, leftX, leftY];
+};
+
+export const getTriangleElementSides = (
+  element: ExcalidrawElement,
+  offset: number = 0,
+): LineSegment<GlobalPoint>[] => {
+  const [topX, topY, rightX, rightY, leftX, leftY] = getTrianglePoints(element);
+  const { x, y } = element;
+
+  return [
+    lineSegment(
+      pointFrom(x + topX, y + topY - offset),
+      pointFrom(x + rightX + offset, y + rightY),
+    ),
+    lineSegment(
+      pointFrom(x + rightX + offset, y + rightY + offset),
+      pointFrom(x + leftX - offset, y + leftY),
+    ),
+    lineSegment(
+      pointFrom(x + leftX - offset, y + leftY),
+      pointFrom(x + topX, y + topY - offset),
+    ),
+  ];
 };
 
 // reference: https://eliot-jones.com/2019/12/cubic-bezier-curve-bounding-boxes

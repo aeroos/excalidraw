@@ -33,18 +33,20 @@ const getNonLinearElementRelativePoints = (
     Element,
     ExcalidrawLinearElement | ExcalidrawFreeDrawElement
   >,
-): [
-  TopLeft: LocalPoint,
-  TopRight: LocalPoint,
-  BottomRight: LocalPoint,
-  BottomLeft: LocalPoint,
-] => {
+): Points => {
   if (element.type === "diamond") {
     return [
       pointFrom(element.width / 2, 0),
       pointFrom(element.width, element.height / 2),
       pointFrom(element.width / 2, element.height),
       pointFrom(0, element.height / 2),
+    ];
+  }
+  if (element.type === "triangle") {
+    return [
+      pointFrom(element.width / 2, 0),
+      pointFrom(element.width, element.height),
+      pointFrom(0, element.height),
     ];
   }
   return [

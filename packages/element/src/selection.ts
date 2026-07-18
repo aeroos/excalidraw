@@ -523,7 +523,7 @@ export const getSelectionStateForElements = (
   allElements: readonly NonDeletedExcalidrawElement[],
   appState: AppState,
 ) => {
-  return {
+  const selectionState = {
     selectedLinearElement: _getLinearElementEditor(targetElements, allElements),
     ...selectGroupsForSelectedElements(
       {
@@ -540,6 +540,29 @@ export const getSelectionStateForElements = (
       allElements,
       appState,
       null,
+    ),
+  };
+
+  // Group expansion must not re-select frame children when their frame
+  // is already part of the selection.
+  const selectedElements = getSelectedElements(allElements, {
+    ...appState,
+    ...selectionState,
+  });
+  const filteredSelectedElementIds = excludeElementsInFramesFromSelection(
+    selectedElements,
+  ).reduce((acc: Record<ExcalidrawElement["id"], true>, element) => {
+    if (!isBoundToContainer(element)) {
+      acc[element.id] = true;
+    }
+    return acc;
+  }, {});
+
+  return {
+    ...selectionState,
+    selectedElementIds: makeNextSelectedElementIds(
+      filteredSelectedElementIds,
+      appState,
     ),
   };
 };

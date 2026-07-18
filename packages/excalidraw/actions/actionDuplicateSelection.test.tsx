@@ -485,14 +485,10 @@ describe("actionDuplicateSelection", () => {
         {
           [ORIG_ID]: rectangle.id,
           frameId: getCloneByOrigId(frame.id)?.id,
-          // FIXME shouldn't be selected (in selectGroupsForSelectedElements)
-          selected: true,
         },
         {
           [ORIG_ID]: text.id,
           frameId: getCloneByOrigId(frame.id)?.id,
-          // FIXME shouldn't be selected (in selectGroupsForSelectedElements)
-          selected: true,
         },
         { [ORIG_ID]: frame.id, selected: true },
         { [ORIG_ID]: ellipse.id, selected: true },

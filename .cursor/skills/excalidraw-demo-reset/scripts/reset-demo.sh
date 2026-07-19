@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Reset Excalidraw repo to demo-baseline (local + GitHub demo-start).
 #
-# Jira tickets reset in skill step 2 (Atlassian MCP): EXCL-1 … EXCL-9
+# Jira tickets reset in skill step 2 (Atlassian MCP): EXCL-1 … EXCL-10
+# Linear issues reset in skill step 3 (Linear MCP): EXCL-1 … EXCL-10
 set -euo pipefail
 
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {

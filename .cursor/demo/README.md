@@ -21,7 +21,7 @@ Parachute preview (finished EXCL-9 for browser fallback): run `.cursor/skills/ex
 
 Board: https://alecroos.atlassian.net/jira/software/projects/EXCL/list
 
-Reset moves **EXCL-1 … EXCL-9** back to **To Do**.
+Reset moves **EXCL-1 … EXCL-10** back to **To Do** (Jira) and **Todo** (Linear).
 
 | Ticket | Summary | Suggested demo order |
 |--------|---------|----------------------|
@@ -34,5 +34,12 @@ Reset moves **EXCL-1 … EXCL-9** back to **To Do**.
 | [EXCL-3](https://alecroos.atlassian.net/browse/EXCL-3) | Add Playwright smoke test | 7 |
 | [EXCL-1](https://alecroos.atlassian.net/browse/EXCL-1) | Add triangle shape tool | 8 |
 | [EXCL-9](https://alecroos.atlassian.net/browse/EXCL-9) | Add dash-dot stroke style to stroke style control | 9 (visual UI slice, ~45–60 min) |
+| [EXCL-10](https://alecroos.atlassian.net/browse/EXCL-10) | Add pattern fill option for non-color shape differentiation | 10 (a11y-focused UI slice, ~90–120 min) |
+
+## Linear team: Excalidraw (`EXCL`)
+
+Board: https://linear.app/field-engineering-scratch/team/EXCL
+
+Linear issues mirror the Jira EXCL tickets above. Reset moves **EXCL-1 … EXCL-10** back to **Todo**.
 
 Plan file: `.cursor/plans/sdlc_demo_tickets_964657cf.plan.md`

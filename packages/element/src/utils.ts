@@ -34,7 +34,7 @@ import type {
   Zoom,
 } from "@excalidraw/excalidraw/types";
 
-import { elementCenterPoint, getDiamondPoints } from "./bounds";
+import { elementCenterPoint, getDiamondPoints, getTrianglePoints } from "./bounds";
 
 import { generateLinearCollisionShape } from "./shape";
 
@@ -57,6 +57,7 @@ import type {
   ExcalidrawFreeDrawElement,
   ExcalidrawLinearElement,
   ExcalidrawRectanguloidElement,
+  ExcalidrawTriangleElement,
 } from "./types";
 
 type ElementShape = [LineSegment<GlobalPoint>[], Curve<GlobalPoint>[]];
@@ -456,6 +457,42 @@ export function deconstructDiamondElement(
   ];
 
   const shape = [sides, corners.flat()] as ElementShape;
+
+  setElementShapesCacheEntry(element, shape, offset);
+
+  return shape;
+}
+
+export function deconstructTriangleElement(
+  element: ExcalidrawTriangleElement,
+  offset: number = 0,
+): [LineSegment<GlobalPoint>[], Curve<GlobalPoint>[]] {
+  const cachedShape = getElementShapesCacheEntry(element, offset);
+
+  if (cachedShape) {
+    return cachedShape;
+  }
+
+  const [topX, topY, bottomRightX, bottomRightY, bottomLeftX, bottomLeftY] =
+    getTrianglePoints(element);
+
+  const top = pointFrom<GlobalPoint>(element.x + topX, element.y + topY);
+  const bottomRight = pointFrom<GlobalPoint>(
+    element.x + bottomRightX,
+    element.y + bottomRightY,
+  );
+  const bottomLeft = pointFrom<GlobalPoint>(
+    element.x + bottomLeftX,
+    element.y + bottomLeftY,
+  );
+
+  const sides = [
+    lineSegment<GlobalPoint>(top, bottomRight),
+    lineSegment<GlobalPoint>(bottomRight, bottomLeft),
+    lineSegment<GlobalPoint>(bottomLeft, top),
+  ];
+
+  const shape = [sides, []] as ElementShape;
 
   setElementShapesCacheEntry(element, shape, offset);
 
